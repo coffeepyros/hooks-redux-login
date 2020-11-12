@@ -1,24 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+// Components
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Welcome from "./components/Welcome";
+import Alert from "./components/Alert";
+
+// ACTIONS
+import { showRegister, showLogin } from "./redux/actions";
+
+// CSS
+import "./App.css";
 
 function App() {
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.users);
+  const registerDisplay = useSelector((state) => state.registerDisplay);
+  const loginDisplay = useSelector((state) => state.loginDisplay);
+  const loginSuccess = useSelector((state) => state.loginSuccess);
+  const alert = useSelector((state) => state.alert);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <React.Fragment>
+      <header>
+        <h1>React Redux Login</h1>
+        <button
+          onClick={() => {
+            dispatch(showRegister());
+          }}
         >
-          Learn React
-        </a>
+          Register
+        </button>
+        <button
+          onClick={() => {
+            dispatch(showLogin());
+          }}
+        >
+          Login
+        </button>
       </header>
-    </div>
+      <main>
+        {/* Hide registration, once user registered */}
+        {registerDisplay ? <Register /> : null}
+        {/* FOR DEV */}
+        {users.length ? JSON.stringify(users) : null}
+        {loginDisplay ? <Login /> : null}
+        {alert ? <Alert /> : null}
+        {loginSuccess ? <Welcome /> : null}
+      </main>
+    </React.Fragment>
   );
 }
 
