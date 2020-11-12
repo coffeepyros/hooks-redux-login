@@ -29,6 +29,9 @@ export default function Login() {
       }}
     >
       <h2>Login</h2>
+
+      <p>test/test is the only combination that works after Registration</p>
+
       <label htmlFor="loginEmail">Email:</label>
       {/* <input type="email" name="email" id="email" /> */}
       <input
